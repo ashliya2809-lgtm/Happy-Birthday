@@ -10,10 +10,12 @@ import { Link } from "react-router";
 import BookCanvas from "../components/BookCanvas";
 import SmallLetter from "../components/SmallLetter";
 import orihime from "../assets/orihime.jpg";
+import birthdayVideo from "../assets/birthdaywish.mp4";
 
 const Home = () => {
     // ------------------- Hooks 
     const [Active, SetActive] = useState(true)
+    const [showVideo, setShowVideo] = useState(false)
 
     useEffect(() => {
         let datetxt = "26 June";
@@ -122,7 +124,7 @@ const Home = () => {
                                 <span>Dear Zarin </span>
                                 <i className="fa-solid fa-heart"></i>
                             </div>
-                            <div className="balloon_one">
+                            <div className="balloon_one" onClick={() => setShowVideo(true)} style={{ cursor: "pointer" }}>
                                 <img width="100px" src={ballon1} alt="" />
                             </div>
                             <div className="balloon_two">
@@ -179,6 +181,43 @@ const Home = () => {
                 <section className="smallLetter absolute md:-bottom-26 -bottom-40 md:left-[45%] left-[50%] -translate-x-1/2" style={{ "--t": "15.6s" }}>
                     <SmallLetter />
                 </section>
+                {/* ========================== Hidden Birthday Video Popup ========================= */}
+                {showVideo && (
+                    <div className="video__modal__overlay" onClick={() => setShowVideo(false)}>
+                        <div className="video__modal__box" onClick={(e) => e.stopPropagation()}>
+                            <button className="video__modal__close" onClick={() => setShowVideo(false)}>
+                                &times;
+                            </button>
+
+                            <div className="video__modal__header">
+                                <span className="video__modal__emoji">🎈🎂🎈</span>
+                                <h2 className="video__modal__title">A little surprise for you...</h2>
+                            </div>
+
+                            <div className="video__modal__player__wrap">
+                                <video
+                                    src={birthdayVideo}
+                                    autoPlay
+                                    controls
+                                    playsInline
+                                    className="video__modal__player"
+                                />
+                            </div>
+
+                            <p className="video__modal__message video__modal__message--animated">
+                                Happy birthday to the most beautiful girl with the world's worst sense
+                                of direction. You could get lost walking from the bed to the bathroom,
+                                you forget what you walked into a room for every single time, and
+                                somehow you still ask me the same question three times in one day 
+                                and yet here you are, looking so stunning that none of it even matters.
+                                Your brain may occasionally buffer like bad wifi, but your smile fixes
+                                everything instantly. I wouldn't trade my gorgeous, slightly chaotic,
+                                wonderfully forgetful girl for anyone else in the world. Happy birthday,
+                                love. 💗
+                            </p>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );
